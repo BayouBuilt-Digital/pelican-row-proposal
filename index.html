@@ -113,10 +113,10 @@
   .finding:last-child{border-bottom:1px solid var(--rule)}
 
   .box{
-    width:17px;height:17px;
-    margin-top:4px;
-    border:1.5px solid rgba(240,237,230,.34);
-    border-radius:2px;
+    width:8px;height:8px;
+    margin:10px auto 0;
+    border-radius:50%;
+    background:var(--teal);
   }
   .ft{
     font-weight:500;
@@ -228,7 +228,7 @@
     padding:11px 0;
   }
   .opt + .opt{border-top:1px solid var(--rule)}
-  .opt .box{margin-top:3px;width:15px;height:15px}
+  .opt .box{margin-top:9px;width:7px;height:7px;background:var(--gold)}
   .opt-t{font-weight:500;font-size:15px;margin:0 0 2px}
   .opt-d{color:var(--cream-dim);font-size:14px;line-height:1.5;margin:0;max-width:58ch}
 
@@ -296,7 +296,8 @@
     .pay-label,.flag{color:#8a6512}
     .flag{border-color:#c9b98a}
     .incl li::before{background:#00875c}
-    .box{border-color:#777}
+    .box{background:#00875c;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .opt .box{background:#8a6512}
     .finding{break-inside:avoid}
     .nav-link,.btn{display:none}
     .next{background:#f4f6f4;border:1px solid #d2d2d2;border-left:3px solid #8a6512;break-inside:avoid}
@@ -515,7 +516,7 @@
         <li>Consistent business name throughout</li>
       </ul>
       <div class="pay">
-        <p class="pay-label">Choose a payment option</p>
+        <p class="pay-label">Payment options</p>
         <div class="opt">
           <div class="box"></div>
           <div>
@@ -546,7 +547,7 @@
         <li>Ongoing site upkeep and small fixes</li>
       </ul>
       <div class="pay">
-        <p class="pay-label">Choose a payment option</p>
+        <p class="pay-label">Payment options</p>
         <div class="opt">
           <div class="box"></div>
           <div>
