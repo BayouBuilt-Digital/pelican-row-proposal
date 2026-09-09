@@ -705,9 +705,10 @@
     if (warnIfEmpty()) return;
     var text = buildText();
     var subject = "Policy questionnaire — Pelican Row Estate & Market";
+    // mailto bodies need CRLF line breaks (RFC 6068); bare \n runs together in some mail apps.
     var href = "mailto:" + RETURN_EMAIL +
       "?subject=" + encodeURIComponent(subject) +
-      "&body=" + encodeURIComponent(text);
+      "&body=" + encodeURIComponent(text.replace(/\r?\n/g, "\r\n"));
     // Some mail programs cut long messages off. Put a copy on the clipboard as a backup.
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).catch(function(){});
