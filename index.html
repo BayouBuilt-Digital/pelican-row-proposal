@@ -158,6 +158,46 @@
     background:var(--surface-2);
     border-left:3px solid var(--teal);
   }
+  .card.alt{border-left:3px solid var(--gold)}
+  .card.alt .card-price{color:var(--gold)}
+  .card-note{
+    margin:0 0 20px;
+    padding:14px 16px;
+    border:1px solid rgba(201,149,42,.35);
+    border-radius:3px;
+    font-size:14.5px;
+    line-height:1.55;
+    color:var(--cream);
+  }
+  .card-note strong{color:var(--gold);font-weight:600}
+  /* Phone frame. The iframe renders at a real 375x812 phone viewport and is scaled to fit. */
+  .preview{
+    width:320px;
+    margin:4px auto 14px;
+    padding:10px;
+    background:#0a0a0a;
+    border:1px solid rgba(240,237,230,.22);
+    border-radius:34px;
+    box-shadow:0 12px 40px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.05);
+  }
+  .preview .screen{
+    width:300px;height:650px;
+    border-radius:24px;overflow:hidden;background:#fff;
+  }
+  .preview iframe{
+    display:block;border:0;
+    width:375px;height:812px;
+    transform:scale(.8);transform-origin:top left;
+  }
+  .card-link{margin:0 0 20px;font-size:14.5px;font-weight:500}
+  .card-link a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(0,214,143,.4)}
+  .card-link a:hover{border-bottom-color:var(--teal)}
+  .path-label{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--cream-dim);
+    margin:26px 0 10px;
+  }
   .card-head{
     display:flex;
     flex-wrap:wrap;
@@ -290,6 +330,12 @@
     :root{--cream-dim:#4a4a4a;--rule:#d2d2d2;--cream:#111}
     .card{background:#fafaf8;border:1px solid #d2d2d2;break-inside:avoid}
     .card.accent{background:#f4f6f4;border-left:3px solid #00875c}
+    .card.alt{border-left:3px solid #8a6512}
+    .card.alt .card-price,.card-note strong{color:#8a6512}
+    .card-note{border-color:#c9b98a}
+    .preview{display:none}
+    .card-link a{color:#00875c;border:0}
+    .card-link a::after{content:" " attr(href);font-family:var(--mono);font-size:10.5px;color:#4a4a4a}
     .card-price{color:#00875c}
     .wordmark{color:#111}
     .wordmark .d{color:#00875c}
@@ -314,6 +360,9 @@
     .card-price{font-size:24px}
     .next{padding:22px 20px}
     .btn{display:block;text-align:center}
+    .preview{width:280px}
+    .preview .screen{width:260px;height:563px}
+    .preview iframe{transform:scale(.6933)}
   }
 </style>
 </head>
@@ -434,6 +483,14 @@
         <p class="fd">Your address appears on the site, but store hours don't. For a walk-in business, that's the question customers ask before they get in the car, and it's one of the first things Google looks for.</p>
       </div>
     </div>
+
+    <div class="finding">
+      <div class="box"></div>
+      <div>
+        <p class="ft">Your Trust Acadiana listing is filed under Embroidery</p>
+        <p class="fd">The listing itself is good, with a strong description and photos. But it sits in the directory under Advertising &amp; Marketing, subcategory Embroidery, with no website link, phone number or street address. A Trust member looking for antiques or furniture to spend Trade Dollars on won't find you.</p>
+      </div>
+    </div>
   </section>
 
   <section>
@@ -467,7 +524,7 @@
 
   <section>
     <h2>Worth considering</h2>
-    <p class="sec-note">Not problems, but gaps where the site could be doing work it isn't. Tell us which of these interest you and we'll scope them separately.</p>
+    <p class="sec-note">Not problems, but gaps where the site could be doing work it isn't. All of these are included in the new site described below.</p>
 
     <div class="finding">
       <div class="box"></div>
@@ -536,39 +593,73 @@
 
   <section id="investment">
     <h2>Investment</h2>
-    <p class="sec-note price-intro">Two pieces. The first gets the site working. The second keeps it worth visiting.</p>
+    <p class="sec-note price-intro">Everything above could be patched one item at a time inside Wix. We don't recommend it. You'd still be on the platform that produced these problems, and none of the things you've told us you want to add, from vendor listings to a waiting list to an events tab, are things Wix does well. So we're proposing a new site instead, in two pieces: the first replaces the site, the second keeps it running and worth visiting. If that's more than you need right now, there's a simpler option first.</p>
+
+    <p class="path-label">If all you need right now is to be found</p>
+
+    <div class="card alt">
+      <div class="card-head">
+        <p class="card-title">Online presence, one page</p>
+        <p class="card-price">$1,150</p>
+      </div>
+      <p class="card-sub">One-time, one and done. A single page that tells people what you are, where you are, and when you're open, hosted off Wix on a free tier that stays free.</p>
+      <p class="card-note"><strong>This is a placeholder, not a plan.</strong> It fixes every problem in the findings above and nothing more. There's no login, nothing to post, and no monthly plan. If you want the site to list vendors, post events, feature booths, or take a waiting list, that's the full site below.</p>
+      <div class="preview">
+        <div class="screen">
+          <iframe src="https://bayoubuilt-digital.github.io/pelican-row/" title="Example one-page site built for Pelican Row" loading="lazy"></iframe>
+        </div>
+      </div>
+      <p class="card-link" style="text-align:center"><a href="https://bayoubuilt-digital.github.io/pelican-row/" target="_blank" rel="noopener">Open the example full size &rarr;</a></p>
+      <ul class="incl">
+        <li>Who you are, what you sell, and a few photos</li>
+        <li>Address, phone and hours, with directions that open in Google Maps or Apple Maps</li>
+        <li>Links to your real Facebook and Instagram</li>
+        <li>All sales final and your other policies in a short section</li>
+        <li>Trust Acadiana "We accept Trade Dollars" link, and your directory listing corrected</li>
+        <li>Your domain moved off Wix, with your Apple Maps business listing claimed</li>
+        <li>Search description, share image and browser icon</li>
+      </ul>
+      <div class="pay">
+        <p class="pay-label">Payment</p>
+        <div class="opt">
+          <div class="box"></div>
+          <div>
+            <p class="opt-t">Paid at launch</p>
+            <p class="opt-d">$1,150 when the page goes live. Changes after that are billed by the hour.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="path-label">If you want the site to work for the market</p>
 
     <div class="card">
       <div class="card-head">
-        <p class="card-title">Site repair and completion</p>
-        <p class="card-price">$975</p>
+        <p class="card-title">New site, built and hosted outside Wix</p>
+        <p class="card-price">$2,300</p>
       </div>
-      <p class="card-sub">One-time. Everything on the list above, start to finish.</p>
+      <p class="card-sub">One-time. A site built around how you actually run the market, on hosting that stays out of your way. Every finding above is resolved as part of it.</p>
       <ul class="incl">
-        <li>Build out the homepage with real content, headings and imagery</li>
-        <li>Photography for site imagery, shot by us or supplied by you</li>
-        <li>Repoint social links to your accounts, or remove them</li>
-        <li>Fix the map to your Johnston Street location</li>
-        <li>Address, phone and hours visible on every page</li>
-        <li>Remove unused apps and the empty pages they created</li>
-        <li>Rename placeholder pages and correct the footer</li>
-        <li>Descriptions, share images and a browser icon across the site</li>
-        <li>Consistent business name throughout</li>
+        <li>Your domain moved to the new site, with fast, modern hosting</li>
+        <li>Homepage with real content and imagery, and an About Us page</li>
+        <li>Contact page with working directions in both Google Maps and Apple Maps, and your Apple Maps business listing claimed</li>
+        <li>Policy page covering all sales final, holds, damage and the rest, written from your questionnaire answers</li>
+        <li>Vendor listings with links to each vendor's site and social accounts</li>
+        <li>Vendor spotlight section for the vendor of the month and new arrivals</li>
+        <li>Events tab you can add to yourself</li>
+        <li>Vendor waiting list form</li>
+        <li>Section for the upstairs liquidation center</li>
+        <li>Advertiser page for businesses outside the booths</li>
+        <li>Trust Acadiana: a "We accept Trade Dollars" link and form, and your directory listing corrected so Trust members can find you</li>
+        <li>Search descriptions, share images, browser icon, hours on every page, and one consistent business name throughout</li>
       </ul>
       <div class="pay">
-        <p class="pay-label">Payment options</p>
+        <p class="pay-label">Payment</p>
         <div class="opt">
           <div class="box"></div>
           <div>
-            <p class="opt-t">Paid in full</p>
-            <p class="opt-d">$975 on completion.</p>
-          </div>
-        </div>
-        <div class="opt">
-          <div class="box"></div>
-          <div>
-            <p class="opt-t">Split with booth credit</p>
-            <p class="opt-d">$475 to start, with the remaining $500 settled through booth space over roughly three and a half months.</p>
+            <p class="opt-t">Half to start, half at launch</p>
+            <p class="opt-d">$1,150 to begin the work and $1,150 when the new site goes live.</p>
           </div>
         </div>
       </div>
@@ -576,15 +667,17 @@
 
     <div class="card accent">
       <div class="card-head">
-        <p class="card-title">Booth of the Month</p>
-        <p class="card-price">$325<span class="per">/mo</span></p>
+        <p class="card-title">Site care, content and Booth of the Month</p>
+        <p class="card-price">$595<span class="per">/mo</span></p>
       </div>
-      <p class="card-sub">Ongoing. A vendor feature program that gives your booth holders a reason to renew and gives customers a reason to come back.</p>
+      <p class="card-sub">Ongoing. We keep the site running and keep it changing, so your vendors have a reason to renew and your customers have a reason to come back.</p>
       <ul class="incl">
-        <li>One booth photographed on site each month</li>
-        <li>10 to 15 edited images, yours to keep and reuse</li>
-        <li>Written feature published to the site</li>
-        <li>Ongoing site upkeep and small fixes</li>
+        <li>One vendor photographed on site each month, with 10 to 15 edited images yours to keep and reuse</li>
+        <li>Written vendor spotlight published to the site each month</li>
+        <li>New vendors welcomed on the site as they join</li>
+        <li>Events posted and kept current</li>
+        <li>Hosting, backups, security updates and monitoring</li>
+        <li>Small fixes and content changes as they come up</li>
       </ul>
       <div class="pay">
         <p class="pay-label">Payment options</p>
@@ -592,28 +685,30 @@
           <div class="box"></div>
           <div>
             <p class="opt-t">Cash</p>
-            <p class="opt-d">$325 per month.</p>
+            <p class="opt-d">$595 per month.</p>
           </div>
         </div>
         <div class="opt">
           <div class="box"></div>
           <div>
             <p class="opt-t">Booth partnership</p>
-            <p class="opt-d">$150 per month plus one booth space, valued at $145 per month for the term of this agreement.</p>
+            <p class="opt-d">$455 per month plus one booth space, valued at $140 per month for the term of this agreement.</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="close">
-      <p>Three-month minimum on the monthly program, then month to month. The booth partnership option is available to Pelican Row because we'd be on site regularly either way, and a vendor who depends on the building's traffic has good reason to keep sending people to it.</p>
+      <p>Three-month minimum on the monthly plan, then month to month. The booth partnership option is available to Pelican Row because we'd be on site regularly either way, and a vendor who depends on the building's traffic has good reason to keep sending people to it.</p>
+      <p>The site runs on hosting that costs nothing at your size. If it ever outgrows that, the hosting cost is about $5 a month, and we'll tell you before it happens.</p>
+      <p>Not included here: the member login and posting system for the reseller group. That's a separate project with its own scope, and we'd rather talk through what the group needs once the new site is live than guess at a price now.</p>
       <p>Rates above are held for 30 days from the date of this document.</p>
     </div>
 
     <div class="next">
       <p class="next-label">Next step</p>
       <h3>Tell us how you run the market</h3>
-      <p>Several of the fixes above depend on details only you have: hours, return terms, whether you ship, how vendors apply. We've put those into a short questionnaire. It takes about fifteen minutes. It's also where you tell us which of the two pieces above you'd like to go ahead with, and at the end there's a button to send us your answers.</p>
+      <p>Several of the fixes above depend on details only you have: hours, return terms, whether you ship, how vendors apply. We've put those into a short questionnaire. It takes about fifteen minutes. It's also where you tell us which of the options above you'd like to go ahead with, and at the end there's a button to send us your answers.</p>
       <a class="btn" href="questionnaire.html">Open the policy questionnaire &rarr;</a>
     </div>
   </section>
