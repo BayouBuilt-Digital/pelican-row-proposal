@@ -96,15 +96,17 @@
   .consent input{margin-top:4px}
 
   /* ---------- text fields ---------- */
-  input[type=text],textarea{
+  input[type=text],input[type=date],textarea{
     width:100%;background:var(--field);color:var(--cream);
     font-family:var(--sans);font-size:14.5px;line-height:1.7;
     border:1px solid var(--line);border-radius:3px;
     padding:7px 11px;margin-top:6px;
   }
+  input[type=date]{color-scheme:dark;min-height:40px;cursor:pointer}
+  .fl{display:block;font-size:13px;color:var(--cream-dim);margin-top:4px}
   input::placeholder,textarea::placeholder{color:rgba(240,237,230,.5)}
   textarea{resize:vertical;min-height:72px}
-  input[type=text]:hover,textarea:hover{border-color:rgba(240,237,230,.7)}
+  input[type=text]:hover,input[type=date]:hover,textarea:hover{border-color:rgba(240,237,230,.7)}
   input:focus,textarea:focus{
     outline:0;border-color:var(--teal);
     background:rgba(0,214,143,.06);
@@ -176,7 +178,8 @@
     h1{font-size:24pt}
     section{padding-top:24px;break-inside:avoid}
     .q{break-inside:avoid}
-    input[type=text],textarea{color:#111}
+    input[type=text],input[type=date],textarea{color:#111}
+    input[type=date]{color-scheme:light}
     textarea{min-height:56px}
     .choice input{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   }
@@ -529,7 +532,7 @@
       <p class="qt">Which site?</p>
       <p class="qh">The one-page option is a placeholder to be found online, with nothing to post and no monthly plan. The full site is the one that lists vendors, posts events and features booths.</p>
       <div class="choices">
-        <label class="choice"><input type="radio" name="site_repair" value="Online presence, one page ($1,150 at launch)">Online presence, one page &middot; $1,150</label>
+        <label class="choice"><input type="radio" name="site_repair" value="Online presence, one page ($575 to start, $575 at launch)">Online presence, one page &middot; $1,150</label>
         <label class="choice"><input type="radio" name="site_repair" value="Full site ($1,150 to start, $1,150 at launch)">Full site &middot; $2,300</label>
         <label class="choice"><input type="radio" name="site_repair" value="Not right now">Not right now</label>
         <label class="choice"><input type="radio" name="site_repair" value="Other">Other</label>
@@ -564,8 +567,8 @@
       <label class="choice consent"><input type="checkbox" name="marketing_consent" value="Granted">By checking this box, you grant BayouBuilt Digital and D&amp;G Fuzion LLC permission to use your name, business name, photographs, likeness, and story on the BayouBuilt Digital website, on its social media channels (including Facebook and Instagram), on the BayouBuilt Digital Facebook page, and in promotional materials.</label>
     </div>
     <div class="pair" style="margin-top:22px">
-      <div><input type="text" name="completed_by" placeholder="Completed by" aria-label="Completed by"></div>
-      <div><input type="text" name="completed_date" placeholder="Date" aria-label="Date"></div>
+      <div><label class="fl" for="completed_by">Completed by</label><input type="text" id="completed_by" name="completed_by" aria-label="Completed by"></div>
+      <div><label class="fl" for="completed_date">Date</label><input type="date" id="completed_date" name="completed_date" aria-label="Date"></div>
     </div>
   </div>
 
@@ -603,7 +606,7 @@
 (function(){
   // Where the "Email your answers" button sends the message.
   // Leave blank to hide the email button until it's set.
-  var RETURN_EMAIL = "contact@bayoubuilt-digital.com";
+  var RETURN_EMAIL = "deanna.hagan@bayoubuilt-digital.com";
   var STORAGE_KEY = "pelican-row-questionnaire-v1";
   var TITLE = "Pelican Row Estate & Market — Policy Questionnaire";
 
@@ -669,6 +672,9 @@
     var out = [];
     out.push(TITLE.toUpperCase());
     var by = form.completed_by.value.trim(), date = form.completed_date.value.trim();
+    // The date picker stores YYYY-MM-DD. Write it out in words for the export.
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
+    if (m) date = new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
     if (by || date) out.push("Completed by: " + (by || "—") + "   Date: " + (date || "—"));
     out.push("Permission to feature your business: " + (form.marketing_consent.checked ? "Granted" : "Not granted"));
     out.push("Exported: " + new Date().toLocaleString());
