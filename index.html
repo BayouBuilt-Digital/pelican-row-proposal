@@ -748,17 +748,33 @@
   frame.addEventListener("mouseenter", function(){ overFrame = true; });
   frame.addEventListener("mouseleave", function(){ overFrame = false; });
 
-  // Any input that reaches this page means the visitor is back out here. Input inside
-  // the frame never reaches this page, so these only fire for the proposal itself.
-  function backOnPage(e){
+  // Input inside the frame never reaches this page, so anything heard here is the visitor
+  // using the proposal itself. A scroll is theirs if a finger is down, if input just
+  // happened, or if it continues a scroll that started that way (momentum after a swipe).
+  // Focus is not trusted for this: mobile browsers keep reporting the frame as focused
+  // after the visitor has moved on, and ignore blur().
+  var touching = false, lastInput = 0, lastScroll = 0, userChain = false;
+
+  function onInput(e){
     if (e.target === frame) return;
-    if (document.activeElement === frame) frame.blur();
+    lastInput = Date.now();
+    if (e.type === "touchstart") touching = true;
+    if (e.type === "touchend" || e.type === "touchcancel") touching = false;
+    if (document.activeElement === frame) frame.blur();   // works on desktop, harmless elsewhere
   }
-  ["touchstart", "pointerdown", "mousemove", "wheel", "keydown"].forEach(function(type){
-    window.addEventListener(type, backOnPage, { passive: true, capture: true });
+  ["touchstart", "touchmove", "touchend", "touchcancel", "pointerdown", "mousemove", "wheel", "keydown"].forEach(function(type){
+    window.addEventListener(type, onInput, { passive: true, capture: true });
   });
 
   window.addEventListener("scroll", function(){
+    var now = Date.now();
+    var continuing = userChain && now - lastScroll < 250;
+    var byVisitor = touching || now - lastInput < 500 || continuing;
+    lastScroll = now;
+
+    if (byVisitor) { userChain = true; goodY = window.scrollY; return; }
+    userChain = false;
+
     var inside = overFrame || document.activeElement === frame;
     if (inside) {
       if (window.scrollY !== goodY) window.scrollTo({ top: goodY, left: 0, behavior: "instant" });
