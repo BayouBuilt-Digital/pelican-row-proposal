@@ -180,9 +180,12 @@
     border-radius:34px;
     box-shadow:0 12px 40px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.05);
   }
+  /* overflow:clip, not hidden. The iframe's layout box is larger than this wrapper, and a
+     hidden-overflow box can still be scrolled by the browser when a link inside the frame
+     jumps to an anchor. clip makes it unscrollable. hidden stays as the fallback. */
   .preview .screen{
     width:300px;height:650px;
-    border-radius:24px;overflow:hidden;background:#fff;
+    border-radius:24px;overflow:hidden;overflow:clip;background:#fff;
   }
   .preview iframe{
     display:block;border:0;
@@ -720,5 +723,50 @@
   </div>
 
 </div>
+
+<script>
+/* Keeps anchor links inside the phone preview from moving anything outside it.
+   When a link in the iframe jumps to an anchor, the browser scrolls every scrollable
+   ancestor to bring the target into view, including this page. */
+(function(){
+  var screen = document.querySelector(".preview .screen");
+  if (!screen) return;
+  var frame = screen.querySelector("iframe");
+
+  // 1. The wrapper must never scroll. overflow:clip handles this in current browsers;
+  //    this covers older ones where it falls back to overflow:hidden.
+  screen.addEventListener("scroll", function(){
+    if (screen.scrollTop || screen.scrollLeft) { screen.scrollTop = 0; screen.scrollLeft = 0; }
+  });
+
+  // 2. Hold this page still while the visitor is working inside the preview.
+  //    "Inside" means the mouse is over the frame, or the frame was the last thing
+  //    clicked or tapped (which is all a touch screen can tell us).
+  var overFrame = false;
+  var goodY = window.scrollY;
+
+  frame.addEventListener("mouseenter", function(){ overFrame = true; });
+  frame.addEventListener("mouseleave", function(){ overFrame = false; });
+
+  // Any input that reaches this page means the visitor is back out here. Input inside
+  // the frame never reaches this page, so these only fire for the proposal itself.
+  function backOnPage(e){
+    if (e.target === frame) return;
+    if (document.activeElement === frame) frame.blur();
+  }
+  ["touchstart", "pointerdown", "mousemove", "wheel", "keydown"].forEach(function(type){
+    window.addEventListener(type, backOnPage, { passive: true, capture: true });
+  });
+
+  window.addEventListener("scroll", function(){
+    var inside = overFrame || document.activeElement === frame;
+    if (inside) {
+      if (window.scrollY !== goodY) window.scrollTo({ top: goodY, left: 0, behavior: "instant" });
+      return;
+    }
+    goodY = window.scrollY;
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>
